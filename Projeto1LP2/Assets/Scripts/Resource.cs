@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resource : MonoBehaviour
+public class Resource : IResource
 {
     private static readonly IDictionary<string, ResourceType> resourceDict = new Dictionary<string, ResourceType>()
     {
@@ -17,14 +17,14 @@ public class Resource : MonoBehaviour
     ////////////
     // VARIABLES
     ////////////
-    private ResourceType typeOfResource;
+    private ResourceType _typeOfResource;
     private int extraGoldValue;
     private int extraFoodValue;
 
     ////////////
     // METHODS
     ////////////
-    public ResourceType Type { get => typeOfResource; }
-    public int GoldValue {get => extraGoldValue; }
-    public int FoodValue {get => extraFoodValue; }
+    public ResourceType typeOfResource { get => _typeOfResource; }
+    public int gold {get => extraGoldValue; }
+    public int food {get => extraFoodValue; }
 }

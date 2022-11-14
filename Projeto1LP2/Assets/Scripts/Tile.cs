@@ -4,40 +4,24 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public TileVariables tileVariables;
-    public TileVariables.typeOfTile typeOfTile;
-
-    void Start()
+    private static readonly IDictionary<string, TerrainType> terrainDict = new Dictionary<string, TerrainType>()
     {
-        tileVariables = GetComponent<TileVariables>();
-        typeOfTile = tileVariables.chooseRandomTile();
-        switch(typeOfTile)
-        {
-            case TileVariables.typeOfTile.desert:
-                tileVariables.coin = 0;
-                tileVariables.food = 0;
-                break;
-            case TileVariables.typeOfTile.plains:
-                tileVariables.coin = 0;
-                tileVariables.food = 2;
-                break;
-            case TileVariables.typeOfTile.hills:
-                tileVariables.coin = 1;
-                tileVariables.food = 1;
-                break;
-            case TileVariables.typeOfTile.mountain:
-                tileVariables.coin = 1;
-                tileVariables.food = 0;
-                break;
-            case TileVariables.typeOfTile.water:
-                tileVariables.coin = 0;
-                tileVariables.food = 1;
-                break;
-        }
-    }
+        {"desert", TerrainType.Desert},
+        {"grassland", TerrainType.Grassland},
+        {"hills", TerrainType.Hills},
+        {"mountain", TerrainType.Mountain},
+        {"ocean", TerrainType.Ocean}
+    };
+    
+    ////////////
+    // VARIABLES
+    ////////////
+    private TerrainType terrainType;
+    private int defaultGoldValue;
+    private int defaultFoodValue;
 
-    void Update()
-    {
-        
-    }
+    ////////////
+    // METHODS
+    ////////////
+    public TerrainType Terrain {get => terrainType; }
 }

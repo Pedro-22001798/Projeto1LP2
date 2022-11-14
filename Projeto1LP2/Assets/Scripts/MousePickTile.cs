@@ -5,10 +5,12 @@ using UnityEngine;
 public class MousePickTile : MonoBehaviour
 {
     private Tile tileSpecifications;
+    private TileVariables tileVariables;
 
     void OnMouseDown()
     {
         tileSpecifications = GetComponent<Tile>();
-        Debug.Log(tileSpecifications.typeOfTile);    
+        tileVariables = GetComponent<TileVariables>();
+        Debug.Log(tileSpecifications.typeOfTile + " - coins= " + tileVariables.returnCoin() + " - food= " + tileVariables.returnFood());    
     }
 }

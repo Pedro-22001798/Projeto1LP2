@@ -8,6 +8,7 @@ public class ZoomScroll : MonoBehaviour
     private float targetZoom;
     private float zoomFactor = 3f;
     [SerializeField] private float zoomLerpSpeed = 10f;
+    [SerializeField] private GameObject windowCanvas;
 
     void Start()
     {
@@ -17,10 +18,13 @@ public class ZoomScroll : MonoBehaviour
 
     void Update()
     {
-        float scrollData;
-        scrollData = Input.GetAxis("Mouse ScrollWheel");
-        targetZoom -= scrollData * zoomFactor;
-        targetZoom = Mathf.Clamp(targetZoom, 2.5f, 14f);
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
+        if(!windowCanvas.active)
+        {
+            float scrollData;
+            scrollData = Input.GetAxis("Mouse ScrollWheel");
+            targetZoom -= scrollData * zoomFactor;
+            targetZoom = Mathf.Clamp(targetZoom, 2.5f, 14f);
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
+        }
     }
 }

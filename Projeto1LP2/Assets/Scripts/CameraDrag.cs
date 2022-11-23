@@ -6,6 +6,7 @@ public class CameraDrag : MonoBehaviour
 {
     private Camera cam;
     private Vector3 dragOrigin;
+    [SerializeField] private GameObject windowCanvas;
 
     void Start()
     {
@@ -19,16 +20,19 @@ public class CameraDrag : MonoBehaviour
 
     void PanCamera()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(!windowCanvas.active)
         {
-            dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
-        }
+            if(Input.GetMouseButtonDown(0))
+            {
+                dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
+            }
 
-        if(Input.GetMouseButton(0))
-        {
-            Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
+            if(Input.GetMouseButton(0))
+            {
+                Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
 
-            cam.transform.position += difference;
+                cam.transform.position += difference;
+            }
         }
     }
 }

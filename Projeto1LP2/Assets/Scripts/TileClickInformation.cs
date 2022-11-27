@@ -18,7 +18,7 @@ public class TileClickInformation : MonoBehaviour
     void OnMouseDown()
     {
         tileSpecifications = GetComponent<Tile>();
-        changeWindowInformationScript.ChangeTerrainInformation(tileSpecifications.Terrain, testColor, tileSpecifications.Resources); 
+        changeWindowInformationScript.ChangeTerrainInformation(tileSpecifications.Terrain, testColor, tileSpecifications.Resources, tileSpecifications.Gold, tileSpecifications.Food); 
     }
 
 }

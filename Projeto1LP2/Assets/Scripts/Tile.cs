@@ -7,13 +7,13 @@ public class Tile : MonoBehaviour
     private static readonly IDictionary<string, TerrainType> terrainDict = new Dictionary<string, TerrainType>()
     {
         {"desert", TerrainType.Desert},
-        {"grassland", TerrainType.Grassland},
+        {"grassland", TerrainType.Plains},
         {"hills", TerrainType.Hills},
         {"mountain", TerrainType.Mountain},
-        {"ocean", TerrainType.Ocean}
+        {"ocean", TerrainType.Water}
     };
     
-    private List<ResourceType> terrainResources = new List<ResourceType>();
+    private List<Resource> terrainResources = new List<Resource>();
 
     ////////////
     // VARIABLES
@@ -28,24 +28,27 @@ public class Tile : MonoBehaviour
     ////////////
     public TerrainType Terrain {get => terrainType; }
     public Color Color {get => terrainColor; }
+    public int Gold {get => defaultGoldValue; }
+    public int Food {get => defaultFoodValue; }
 
-    public List<ResourceType> Resources
+    public List<Resource> Resources
     {
         get
         {
-            List<ResourceType> aux = new List<ResourceType>();
+            List<Resource> tempResources = new List<Resource>();
 
-            foreach (ResourceType r in terrainResources)
-                aux.Add(r);
+            foreach (Resource r in terrainResources)
+                tempResources.Add(r);
             
-            return aux;
+            return tempResources;
         }
     }
 
     void Start()
     {
-        terrainResources.Add(ResourceType.Plants);
-        terrainResources.Add(ResourceType.Metals);
+        terrainResources.Add(new Resource("plants"));
+        terrainResources.Add(new Resource("metals"));
+        DefineBaseValues();
     }
 
     private void DefineBaseValues()
@@ -58,7 +61,7 @@ public class Tile : MonoBehaviour
                 //terrainColor = new Color();
                 break;
             
-            case TerrainType.Grassland:
+            case TerrainType.Plains:
                 defaultGoldValue = 0;
                 defaultFoodValue = 2;
                 //terrainColor = new Color();
@@ -76,7 +79,7 @@ public class Tile : MonoBehaviour
                 //terrainColor = new Color();
                 break;
 
-            case TerrainType.Ocean:
+            case TerrainType.Water:
                 defaultGoldValue = 0;
                 defaultFoodValue = 1;
                 //terrainColor = new Color();

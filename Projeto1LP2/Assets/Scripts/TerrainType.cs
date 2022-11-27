@@ -1,8 +1,8 @@
 public enum TerrainType
 {
     Desert,
-    Grassland,
+    Plains,
     Hills,
     Mountain,
-    Ocean
+    Water
 }

@@ -44,28 +44,48 @@ public class Program : MonoBehaviour
                 if(row < rows && col < cols)
                 {
                     string[] line = lines[i].Split(" ");
-                    if(line[0] != "#")
+                    bool commented = false;
+                    for(int y = 0; y < line.Length; y++)
                     {
-                        for(int y = 0; y < line.Length; y++)
+                        if(line[y] != "#")
                         {
-                            if(y == 0)
+                            if(!commented)
                             {
-                                mapTerrains[row,col] = line[y];
-                            }
-                            else
-                            {
-                                tileResources.Add(line[y]);
+                                if(y == 0)
+                                {
+                                    mapTerrains[row,col] = line[y];
+                                }
+                                else
+                                {
+                                    tileResources.Add(line[y]);
+                                }
                             }
                         }
-                        tileResources.Clear();
-
-                        col++;
-                        if(col == cols)
+                        else
                         {
-                            col = 0;
-                            row++;
+                            commented = true;
+                            break;
                         }
                     }
+                    commented = false;
+                    if(line[0] != "#")
+                    {
+                        Debug.Log($"row {row}, col {col} = {mapTerrains[row,col]} recursos:");
+                        foreach(string s in tileResources)
+                        {
+                            Debug.Log(s);
+                        }
+                    }
+                    tileResources.Clear();
+
+                    if(line[0] != "#")
+                        col++;
+                    if(col == cols)
+                    {
+                        col = 0;
+                        row++;
+                    }
+
                 }
             }
         }

@@ -11,18 +11,18 @@ public class NewMap : MonoBehaviour
     public int Cols {get => cols;}
     public int Rows {get => rows;}
     
-    public void DefineTile(int col, int row, Tile newTile)
+    public void DefineTile(int row, int col, Tile newTile)
     {
-        tiles[col,row] = newTile;
+        tiles[row,col] = newTile;
     }
 
-    public Tile GetTile(int col, int row)
+    public Tile GetTile(int row, int col)
     {
-        return tiles[col,row];
+        return tiles[row,col];
     }
 
-    public void DefineMapSize(int numCols, int numRows)
+    public void DefineMapSize(int numRows, int numCols)
     {
-        tiles = new Tile[numCols,numRows];
+        tiles = new Tile[numRows,numCols];
     }
 }

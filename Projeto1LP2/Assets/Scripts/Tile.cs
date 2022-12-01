@@ -7,10 +7,10 @@ public class Tile : MonoBehaviour
     private static readonly IDictionary<string, TerrainType> terrainDict = new Dictionary<string, TerrainType>()
     {
         {"desert", TerrainType.Desert},
-        {"grassland", TerrainType.Plains},
+        {"plains", TerrainType.Plains},
         {"hills", TerrainType.Hills},
         {"mountain", TerrainType.Mountain},
-        {"ocean", TerrainType.Water}
+        {"water", TerrainType.Water}
     };
     
     private List<Resource> terrainResources = new List<Resource>();
@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
     ////////////
     // VARIABLES
     ////////////
-    [SerializeField] private TerrainType terrainType;
+    private TerrainType terrainType;
     private int defaultGoldValue;
     private int defaultFoodValue;
     private Color terrainColor;
@@ -44,11 +44,15 @@ public class Tile : MonoBehaviour
         }
     }
 
-    void Start()
+    public Tile(string terrain, List<Resource> resources)
     {
-        terrainResources.Add(new Resource("plants"));
-        terrainResources.Add(new Resource("metals"));
+        terrainDict.TryGetValue(terrain, out terrainType);
         DefineBaseValues();
+        terrainResources = new List<Resource>();
+        foreach(Resource r in resources)
+        {
+            terrainResources.Add(r);
+        }
     }
 
     private void DefineBaseValues()

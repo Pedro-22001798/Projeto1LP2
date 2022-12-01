@@ -38,6 +38,7 @@ public class Program : MonoBehaviour
                 rows = ints[0];
                 cols = ints[1];
                 mapTerrains = new string[rows,cols];
+                mapScript.DefineMapSize(rows,cols);
             }
             else
             {
@@ -45,6 +46,7 @@ public class Program : MonoBehaviour
                 {
                     string[] line = lines[i].Split(" ");
                     bool commented = false;
+                    List<Resource> tileResources2 = new List<Resource>();
                     for(int y = 0; y < line.Length; y++)
                     {
                         if(line[y] != "#")
@@ -58,6 +60,8 @@ public class Program : MonoBehaviour
                                 else
                                 {
                                     tileResources.Add(line[y]);
+                                    Resource newResource = new Resource(line[y]);
+                                    tileResources2.Add(newResource);
                                 }
                             }
                         }
@@ -67,19 +71,19 @@ public class Program : MonoBehaviour
                             break;
                         }
                     }
+
                     commented = false;
-                    if(line[0] != "#")
-                    {
-                        Debug.Log($"row {row}, col {col} = {mapTerrains[row,col]} recursos:");
-                        foreach(string s in tileResources)
-                        {
-                            Debug.Log(s);
-                        }
-                    }
                     tileResources.Clear();
 
                     if(line[0] != "#")
+                    {
+                        Tile newTile = new Tile(mapTerrains[row,col], tileResources2);
+                        mapScript.DefineTile(row,col,newTile);
+                        Debug.Log(newTile.Terrain);
+                        foreach(Resource r in newTile.Resources)
+                            Debug.Log(r.typeOfResource);
                         col++;
+                    }
                     if(col == cols)
                     {
                         col = 0;

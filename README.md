@@ -21,3 +21,11 @@ Dentro deste ciclo, caso o terreno pretendido tenha recursos, a aplicação irá
 Caso a aplicação não identifique a primeira palavra como o inicio de um comentário, a mesma irá criar um novo `Tile` para cada linha válida, recebendo uma *string* correspondende ao tipo de terreno, bem como uma lista de recursos para o mesmo.
 Finalizando o ciclo, a aplicação irá transportar a informação (*rows* e *cols*) para o `FillMap` que é responsável pela implementação do visual do mapa pretendido.
 
+Dentro do projeto existem dois *scripts* responsáveis pelos tipos de terreno e recursos disponíveis, sendo eles, `TerrainType` e `ResourceType`.
+
+Dentro do script responsável pelas variáveis de um terreno, o `Tile`, é possível encontrar um *IDictionary*, que recebe o valor em *string*, do ficheiro, e devolve o valor em `TerrainType`. Dentro do construtor, que recebe o valor *string* do terreno, bem como os recursos nele contidos, o mesmo atribui o valor `TerrainType` à variável inicializada anteriormente. De seguida, é iniciado um método que irá procurar pelo tipo de terreno, atribuindo os valores de *gold*, *food* e cor definidos no enunciado. Por fim, cria uma lista nova da anteriomente declarada, e, através de um ciclo, coloca todos os recursos recebidos pelo construitor dentro dessa lista.
+
+O *script* `Resource` funciona da mesma forma, sendo que também contém um *IDictionary* para o valor *string* e o valor `ResourceType` correspondentes. A pricipal diferença está no construtor, que desta vez não precisa de uma lista de recursos. 
+
+Dentro do `NewMap` podemos encontrar alguns métodos, responsáveis pela criação de uma matriz, utilizada no `Program`, bem como um método que devolve a informação `Tile` dentro das coordenadas estipuladas.
+

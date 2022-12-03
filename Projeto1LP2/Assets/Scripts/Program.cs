@@ -136,7 +136,6 @@ public class Program : MonoBehaviour
                     }
                     else
                         error = true;
-                    //cameraDragScript.DefineLimits(rows,cols);
                 }
                 else
                 {
@@ -144,7 +143,7 @@ public class Program : MonoBehaviour
                     {
                         if(row < rows && col < cols)
                         {
-                            string[] line = lines[i].Split(" ");
+                            string[] line = lines[i].Split(" ", StringSplitOptions.RemoveEmptyEntries);
                             bool commented = false;
                             List<Resource> tileResources2 = new List<Resource>();
                             for(int y = 0; y < line.Length; y++)

@@ -27,6 +27,8 @@ public class Program : MonoBehaviour
     [SerializeField] private Dropdown mapOptionsDropDown;
     [SerializeField] private GameObject startUI;
 
+    [SerializeField] private TileFiller tileFillerScript;
+
     void Start()
     {
         files = Directory.GetFiles(path,extension);
@@ -68,6 +70,7 @@ public class Program : MonoBehaviour
                 cols = ints[1];
                 mapTerrains = new string[rows,cols];
                 mapScript.DefineMapSize(rows,cols);
+                tileFillerScript.FillMap(rows,cols);
             }
             else
             {

@@ -11,8 +11,8 @@ public class TileClickInformation : MonoBehaviour
     private NewMap mapManagerScript;
     private Color testColor;
 
-    [SerializeField] private int row;
-    [SerializeField] private int col;
+    private int row;
+    private int col;
 
     void Start()
     {
@@ -22,6 +22,13 @@ public class TileClickInformation : MonoBehaviour
         mapManagerScript = mapManager.GetComponent<NewMap>();
         testColor = new Color(0f,1f,0f);
     }
+
+    public void DefineCoords(int newRow, int newCol)
+    {
+        row = newRow;
+        col = newCol;
+    }
+
     void OnMouseDown()
     {
         tileSpecifications = mapManagerScript.GetTile(row,col);

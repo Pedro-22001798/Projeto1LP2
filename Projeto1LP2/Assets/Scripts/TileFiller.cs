@@ -23,7 +23,7 @@ public class TileFiller : MonoBehaviour
         {
             for(int col = 0; col < cols; col++)
             {
-                GameObject newTile = Instantiate(testObject, new Vector3(col, -row, 0), Quaternion.identity);
+                GameObject newTile = Instantiate(testObject, new Vector3(2 * col, 2 * -row, 0), Quaternion.identity);
                 TileClickInformation tileInformation = newTile.GetComponent<TileClickInformation>();
                 tileInformation.DefineCoords(row,col);
                 tileSpecifications = mapManagerScript.GetTile(row,col);

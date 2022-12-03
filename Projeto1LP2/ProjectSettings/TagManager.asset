@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CanvasManager
   - MapManager
+  - TileInformation
   layers:
   - Default
   - TransparentFX

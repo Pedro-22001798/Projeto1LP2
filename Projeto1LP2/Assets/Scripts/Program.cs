@@ -28,29 +28,87 @@ public class Program : MonoBehaviour
     [SerializeField] private GameObject startUI;
 
     [SerializeField] private TileFiller tileFillerScript;
-    //[SerializeField] private CameraDrag cameraDragScript;
+    [SerializeField] private Text errorText; 
+    private bool error;
 
     void Start()
     {
         files = Directory.GetFiles(path,extension);
         listOfMaps = new List<string>();
         mapOptionsDropDown.ClearOptions();
+
         for(int i = 0; i < files.Length; i++)
         {
             listOfMaps.Add(files[i]);
         }
+
         mapOptionsDropDown.AddOptions(listOfMaps);
+        error = false;
+
+        if(files.Length > 0)
+        {
+            errorText.text = $"Detected {files.Length} matching files!"; 
+            errorText.color = Color.green;
+        }
+        else
+        {
+            errorText.text = "No files with *.map4x detected!";
+            errorText.color = Color.red;            
+        }
+        StartCoroutine("SearchForMaps");
+    }
+
+    private IEnumerator SearchForMaps()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(3f);
+            files = Directory.GetFiles(path,extension);
+            listOfMaps = new List<string>();
+            int prevOption = mapOptionsDropDown.value;
+            mapOptionsDropDown.ClearOptions();
+
+            for(int i = 0; i < files.Length; i++)
+            {
+                listOfMaps.Add(files[i]);
+            }
+
+            mapOptionsDropDown.AddOptions(listOfMaps);
+            mapOptionsDropDown.value = option;
+            error = false;
+
+            if(files.Length > 0)
+            {
+                errorText.text = $"Detected {files.Length} matching files!"; 
+                errorText.color = Color.green;
+            }
+            else
+            {
+                errorText.text = "No files with *.map4x detected!";
+                errorText.color = Color.red;            
+            }            
+        }
     }
 
     public void DropDownValueChanged(Dropdown change)
     {
-        option = mapOptionsDropDown.value;
+        if(listOfMaps.Count > 0)
+            option = mapOptionsDropDown.value;
     }
 
     public void StartGame()
     {
-        startUI.SetActive(false);
-        Game(files[option]);
+        if(files.Length > 0)
+        {
+            startUI.SetActive(false);
+            Game(files[option]); 
+            StopCoroutine("SearchForMaps");    
+        }
+        else
+        {
+            errorText.text = "Can't start the game without a selected valid map!";
+            errorText.color = Color.red;                  
+        }
     }
 
     void Game(string file)
@@ -60,70 +118,82 @@ public class Program : MonoBehaviour
         int col = 0;
         int row = 0;
 
-        for(int i = 0; i < lines.Length; i++)
+        if(!error)
         {
-            if(i == 0)
+            for(int i = 0; i < lines.Length; i++)
             {
-                string[] mapSize = lines[i].Split(" ");
-                int[] ints = new int[mapSize.Length];
-                for(int y = 0; y < mapSize.Length; y++) ints[y] = Int32.Parse(mapSize[y]);
-                rows = ints[0];
-                cols = ints[1];
-                mapTerrains = new string[rows,cols];
-                mapScript.DefineMapSize(rows,cols);
-                //cameraDragScript.DefineLimits(rows,cols);
-            }
-            else
-            {
-                if(row < rows && col < cols)
+                if(i == 0)
                 {
-                    string[] line = lines[i].Split(" ");
-                    bool commented = false;
-                    List<Resource> tileResources2 = new List<Resource>();
-                    for(int y = 0; y < line.Length; y++)
+                    string[] mapSize = lines[i].Split(" ");
+                    int[] ints = new int[mapSize.Length];
+                    for(int y = 0; y < mapSize.Length; y++) ints[y] = Int32.Parse(mapSize[y]);
+                    if(ints.Length == 2)
                     {
-                        if(line[y] != "#")
+                        rows = ints[0];
+                        cols = ints[1];
+                        mapTerrains = new string[rows,cols];
+                        mapScript.DefineMapSize(rows,cols);
+                    }
+                    else
+                        error = true;
+                    //cameraDragScript.DefineLimits(rows,cols);
+                }
+                else
+                {
+                    if(!error)
+                    {
+                        if(row < rows && col < cols)
                         {
-                            if(!commented)
+                            string[] line = lines[i].Split(" ");
+                            bool commented = false;
+                            List<Resource> tileResources2 = new List<Resource>();
+                            for(int y = 0; y < line.Length; y++)
                             {
-                                if(y == 0)
+                                if(line[y] != "#")
                                 {
-                                    mapTerrains[row,col] = line[y];
+                                    if(!commented)
+                                    {
+                                        if(y == 0)
+                                        {
+                                            mapTerrains[row,col] = line[y];
+                                        }
+                                        else
+                                        {
+                                            tileResources.Add(line[y]);
+                                            Resource newResource = new Resource(line[y]);
+                                            tileResources2.Add(newResource);
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    tileResources.Add(line[y]);
-                                    Resource newResource = new Resource(line[y]);
-                                    tileResources2.Add(newResource);
+                                    commented = true;
+                                    break;
                                 }
                             }
+
+                            commented = false;
+                            tileResources.Clear();
+
+                            if(line[0] != "#")
+                            {
+                                Tile newTile = new Tile(mapTerrains[row,col], tileResources2);
+                                mapScript.DefineTile(row,col,newTile);
+
+                                col++;
+                            }
+                            if(col == cols)
+                            {
+                                col = 0;
+                                row++;
+                            }
+
                         }
-                        else
-                        {
-                            commented = true;
-                            break;
-                        }
                     }
-
-                    commented = false;
-                    tileResources.Clear();
-
-                    if(line[0] != "#")
-                    {
-                        Tile newTile = new Tile(mapTerrains[row,col], tileResources2);
-                        mapScript.DefineTile(row,col,newTile);
-
-                        col++;
-                    }
-                    if(col == cols)
-                    {
-                        col = 0;
-                        row++;
-                    }
-
                 }
             }
+            tileFillerScript.FillMap(rows,cols);
         }
-        tileFillerScript.FillMap(rows,cols);
+        error = false;
     }
 }

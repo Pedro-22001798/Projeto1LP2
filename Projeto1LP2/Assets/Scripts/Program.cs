@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.IO;
 
@@ -20,10 +21,38 @@ public class Program : MonoBehaviour
     // SCRIPTS
     [SerializeField] private NewMap mapScript;
 
+    private string[] files;
+    int option;
+    private List<string> listOfMaps;
+    [SerializeField] private Dropdown mapOptionsDropDown;
+    [SerializeField] private GameObject startUI;
+
     void Start()
     {
-        string[] file = Directory.GetFiles(path,extension);
-        lines = File.ReadAllLines(file[0]);
+        files = Directory.GetFiles(path,extension);
+        listOfMaps = new List<string>();
+        mapOptionsDropDown.ClearOptions();
+        for(int i = 0; i < files.Length; i++)
+        {
+            listOfMaps.Add(files[i]);
+        }
+        mapOptionsDropDown.AddOptions(listOfMaps);
+    }
+
+    public void DropDownValueChanged(Dropdown change)
+    {
+        option = mapOptionsDropDown.value;
+    }
+
+    public void StartGame()
+    {
+        startUI.SetActive(false);
+        Game(files[option]);
+    }
+
+    void Game(string file)
+    {
+        lines = File.ReadAllLines(file);
 
         int col = 0;
         int row = 0;

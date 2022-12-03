@@ -9,5 +9,6 @@
 
 ## Legendas
 ### Legenda Tiles
+![alt text](Images/Tiles.png)
 ### Legenda Recursos
 

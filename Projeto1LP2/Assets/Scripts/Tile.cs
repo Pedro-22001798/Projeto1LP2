@@ -62,31 +62,31 @@ public class Tile : MonoBehaviour
             case TerrainType.Desert:
                 defaultGoldValue = 0;
                 defaultFoodValue = 0;
-                //terrainColor = new Color();
+                terrainColor = new Color32(217,137,43,255);
                 break;
             
             case TerrainType.Plains:
                 defaultGoldValue = 0;
                 defaultFoodValue = 2;
-                //terrainColor = new Color();
+                terrainColor = new Color32(165,177,15,255);
                 break;
             
             case TerrainType.Hills:
                 defaultGoldValue = 1;
                 defaultFoodValue = 1;
-                //terrainColor = new Color();
+                terrainColor = new Color32(24,71,35,255);
                 break;
             
             case TerrainType.Mountain:
                 defaultGoldValue = 1;
                 defaultFoodValue = 0;
-                //terrainColor = new Color();
+                terrainColor = new Color32(64,61,56,255);
                 break;
 
             case TerrainType.Water:
                 defaultGoldValue = 0;
                 defaultFoodValue = 1;
-                //terrainColor = new Color();
+                terrainColor = new Color32(20,161,206,255);
                 break;
         }
     }

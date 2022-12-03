@@ -9,7 +9,6 @@ public class TileClickInformation : MonoBehaviour
     private GameObject mapManager;
     private ChangeWindowInformation changeWindowInformationScript;
     private NewMap mapManagerScript;
-    private Color testColor;
 
     private int row;
     private int col;
@@ -20,7 +19,6 @@ public class TileClickInformation : MonoBehaviour
         changeWindowInformationScript = canvasManager.GetComponent<ChangeWindowInformation>();
         mapManager = GameObject.FindWithTag("MapManager");
         mapManagerScript = mapManager.GetComponent<NewMap>();
-        testColor = new Color(0f,1f,0f);
     }
 
     public void DefineCoords(int newRow, int newCol)
@@ -32,7 +30,7 @@ public class TileClickInformation : MonoBehaviour
     void OnMouseDown()
     {
         tileSpecifications = mapManagerScript.GetTile(row,col);
-        changeWindowInformationScript.ChangeTerrainInformation(tileSpecifications.Terrain, testColor, tileSpecifications.Resources, tileSpecifications.Gold, tileSpecifications.Food); 
+        changeWindowInformationScript.ChangeTerrainInformation(tileSpecifications.Terrain, tileSpecifications.Color, tileSpecifications.Resources, tileSpecifications.Gold, tileSpecifications.Food); 
     }
 
 }

@@ -28,6 +28,7 @@ public class Program : MonoBehaviour
     [SerializeField] private GameObject startUI;
 
     [SerializeField] private TileFiller tileFillerScript;
+    //[SerializeField] private CameraDrag cameraDragScript;
 
     void Start()
     {
@@ -70,7 +71,7 @@ public class Program : MonoBehaviour
                 cols = ints[1];
                 mapTerrains = new string[rows,cols];
                 mapScript.DefineMapSize(rows,cols);
-                tileFillerScript.FillMap(rows,cols);
+                //cameraDragScript.DefineLimits(rows,cols);
             }
             else
             {
@@ -111,9 +112,7 @@ public class Program : MonoBehaviour
                     {
                         Tile newTile = new Tile(mapTerrains[row,col], tileResources2);
                         mapScript.DefineTile(row,col,newTile);
-                        Debug.Log(newTile.Terrain);
-                        foreach(Resource r in newTile.Resources)
-                            Debug.Log(r.typeOfResource);
+
                         col++;
                     }
                     if(col == cols)
@@ -125,5 +124,6 @@ public class Program : MonoBehaviour
                 }
             }
         }
+        tileFillerScript.FillMap(rows,cols);
     }
 }

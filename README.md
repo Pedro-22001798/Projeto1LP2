@@ -29,3 +29,17 @@ O *script* `Resource` funciona da mesma forma, sendo que também contém um *IDi
 
 Dentro do `NewMap` podemos encontrar alguns métodos, responsáveis pela criação de uma matriz, utilizada no `Program`, bem como um método que devolve a informação `Tile` dentro das coordenadas estipuladas.
 
+Já com o mapa criado, como referido anteriormente, o `TileFiller` irá receber a informação correspondente ao número de linhas e colunas, desta forma, irá instanciar um objeto definido como um "terreno base", que se pode encontrar na pasta dos *prefabs*, atribuindo a posição correta, começando em (0,0), bem como a cor respetiva e atribuida na classe `Tile`. Por fim, irá atribuir os recursos desse mesmo `Tile` a uma lista, podendo desta forma instanciar os recursos nele contidos, que funciona através de um ciclo. Este ciclo procura pelos 6 espaços disponiveis, dentro de um `Tile`, instanciando cada objeto com a posição desse mesmo espaço (sendo colocado como filho desse objeto).
+
+Por fim, já com a possibilidade de visualizar o mapa, bem como os seus recursos, o jogador poderá andar com a camera (consultar `CameraDrag`):
+
+    - Seta para a esquerda = movimento para a esquerda.
+    - Seta para a direita = movimento para a direita.
+    - Seta para cima = movimento para cima.
+    - Seta para baixo = movimento para baixo.
+De inicio, implementei a possibilidade de "arrastar" a camera, contudo, esta implementação acabava por causar alguns erros, já dentro do jogo.
+
+Além de mover a camera, poderá também efetuar *zoom in* ou *zoom out*, através do scroll do rato. O scroll está limitado a valor definidos dentro do `ZoomScroll`.
+
+Para o jogador obter informação de cada `Tile`, basta clicar em cima do mesmo. Através de um método disponível em cada terreno (consultar `TileClickInformation`), são enviadas as coordenadas deste terreno para outro *script* `ChangeWindowInformation` que disponibiliza a informação recebida dentro de um *canvas*, onde é possível observar o tipo de terreno, recursos nele contidos, ouro por ronda e comida por ronda.
+

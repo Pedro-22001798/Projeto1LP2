@@ -11,4 +11,5 @@
 ### Legenda Tiles
 ![alt text](Images/Tiles.png)
 ### Legenda Recursos
+![alt text](Images/Resources.png)
 

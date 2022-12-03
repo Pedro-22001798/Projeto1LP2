@@ -159,9 +159,12 @@ public class Program : MonoBehaviour
                                         }
                                         else
                                         {
-                                            tileResources.Add(line[y]);
-                                            Resource newResource = new Resource(line[y]);
-                                            tileResources2.Add(newResource);
+                                            if(!tileResources.Contains(line[y]))
+                                            {
+                                                tileResources.Add(line[y]);
+                                                Resource newResource = new Resource(line[y]);
+                                                tileResources2.Add(newResource);
+                                            }
                                         }
                                     }
                                 }

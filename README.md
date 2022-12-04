@@ -45,11 +45,15 @@ Para o jogador obter informação de cada `Tile`, basta clicar em cima do mesmo.
 
 Caso o jogador decida que quer mudar de mapa, poderá selecionar o botão redondo laranja que se encontra no canto inferior esquerdo durante o jogo. Este botão elimina todos os objetos instanciados como terrenos dentro de um objeto mãe (consultar `RestartGame`), de seguida, irá correr as linhas de código presentes no método *Start()* do script `Program`, bem como desligar a janela de informação de terreno e ativar a janela inicial. 
 
+### Diagrama UML
+![alt text](Images/Diagrama.png)
+
 ## Referências
 Para a conclusão deste projeto foi realizada pesquisa para cada problema obtido. Dos quais as seguintes fontes foram utilizadas:
 - Troca de ideias com colegas sobre como realizar e implementar a troca de *string* para o tipo de Recurso ou Terreno (*IDictionary*).
 - Utilização do API da microsoft para consulta de métodos.
 - Utilização do Stackoverflow para a separação das *strings* removendo os espaços em branco, bem como leitura de ficheiros e outros problemas menores.
 - Slides Linguagens de Programação II para leitura de ficheiros.
+- Consulta de lucidchart para a realização do Diagrama UML.
 
 

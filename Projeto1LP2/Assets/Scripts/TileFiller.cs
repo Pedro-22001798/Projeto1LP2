@@ -10,6 +10,7 @@ public class TileFiller : MonoBehaviour
     private Tile tileSpecifications;
     [SerializeField] private GameObject[] availableResources;
     List<Resource> tileResources;
+    [SerializeField] private GameObject tileParent;
 
     void Start()
     {
@@ -23,7 +24,7 @@ public class TileFiller : MonoBehaviour
         {
             for(int col = 0; col < cols; col++)
             {
-                GameObject newTile = Instantiate(testObject, new Vector3(2 * col, 2 * -row, 0), Quaternion.identity);
+                GameObject newTile = Instantiate(testObject, new Vector3(2 * col, 2 * -row, 0), Quaternion.identity, tileParent.transform);
                 TileClickInformation tileInformation = newTile.GetComponent<TileClickInformation>();
                 tileInformation.DefineCoords(row,col);
                 tileSpecifications = mapManagerScript.GetTile(row,col);
@@ -55,6 +56,14 @@ public class TileFiller : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    public void RestartGame()
+    {
+        for(int i = 0; i < tileParent.transform.childCount; i++)
+        {
+            Destroy(tileParent.transform.GetChild(i).gameObject);
         }
     }
 }

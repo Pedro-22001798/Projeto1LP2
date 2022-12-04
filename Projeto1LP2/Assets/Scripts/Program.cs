@@ -31,8 +31,11 @@ public class Program : MonoBehaviour
     [SerializeField] private Text errorText; 
     private bool error;
 
+    [SerializeField] private GameObject restartButton;
+
     void Start()
     {
+        restartButton.SetActive(false);
         files = Directory.GetFiles(path,extension);
         listOfMaps = new List<string>();
         mapOptionsDropDown.ClearOptions();
@@ -102,7 +105,8 @@ public class Program : MonoBehaviour
         {
             startUI.SetActive(false);
             Game(files[option]); 
-            StopCoroutine("SearchForMaps");    
+            StopCoroutine("SearchForMaps");
+            restartButton.SetActive(true);    
         }
         else
         {
@@ -197,5 +201,34 @@ public class Program : MonoBehaviour
             tileFillerScript.FillMap(rows,cols);
         }
         error = false;
+    }
+
+    public void RestartGame()
+    {
+        restartButton.SetActive(false);
+        option = 0;
+        files = Directory.GetFiles(path,extension);
+        listOfMaps = new List<string>();
+        mapOptionsDropDown.ClearOptions();
+
+        for(int i = 0; i < files.Length; i++)
+        {
+            listOfMaps.Add(files[i]);
+        }
+
+        mapOptionsDropDown.AddOptions(listOfMaps);
+        error = false;
+
+        if(files.Length > 0)
+        {
+            errorText.text = $"Detected {files.Length} matching files!"; 
+            errorText.color = Color.green;
+        }
+        else
+        {
+            errorText.text = "No files with *.map4x detected!";
+            errorText.color = Color.red;            
+        }
+        StartCoroutine("SearchForMaps");        
     }
 }

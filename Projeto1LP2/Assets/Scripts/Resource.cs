@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resource : IResource
+public class Resource : MonoBehaviour
 {
     private static readonly IDictionary<string, ResourceType> resourceDict = new Dictionary<string, ResourceType>()
     {

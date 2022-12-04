@@ -43,3 +43,5 @@ Além de mover a camera, poderá também efetuar *zoom in* ou *zoom out*, atrav�
 
 Para o jogador obter informação de cada `Tile`, basta clicar em cima do mesmo. Através de um método disponível em cada terreno (consultar `TileClickInformation`), são enviadas as coordenadas deste terreno para outro *script* `ChangeWindowInformation` que disponibiliza a informação recebida dentro de um *canvas*, onde é possível observar o tipo de terreno, recursos nele contidos, ouro por ronda e comida por ronda.
 
+Caso o jogador decida que quer mudar de mapa, poderá selecionar o botão redondo laranja que se encontra no canto inferior esquerdo durante o jogo. Este botão elimina todos os objetos instanciados como terrenos dentro de um objeto mãe (consultar `RestartGame`), de seguida, irá correr as linhas de código presentes no método *Start()* do script `Program`, bem como desligar a janela de informação de terreno e ativar a janela inicial. 
+

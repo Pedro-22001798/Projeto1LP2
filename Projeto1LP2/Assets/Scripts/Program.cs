@@ -20,23 +20,32 @@ public class Program : MonoBehaviour
     
     // SCRIPTS
     [SerializeField] private NewMap mapScript;
+    [SerializeField] private TileFiller tileFillerScript;
+    [SerializeField] private RestartGame restartGameScript;
 
+    // FILE READING
     private string[] files;
     int option;
     private List<string> listOfMaps;
     [SerializeField] private Dropdown mapOptionsDropDown;
-    [SerializeField] private GameObject startUI;
 
-    [SerializeField] private TileFiller tileFillerScript;
+    // POSSIBLE ERROR
     [SerializeField] private Text errorText; 
     private bool error;
+    private IEnumerator errorCoroutine;
 
+    // UI
+    [SerializeField] private GameObject startUI;
     [SerializeField] private GameObject restartButton;
     [SerializeField] private GameObject[] futureButtons;
+    [SerializeField] private GameObject errorUI;
+    [SerializeField] private Text errorUIText;
 
     void Start()
     {
         restartButton.SetActive(false);
+        errorUI.SetActive(false);
+
         files = Directory.GetFiles(path,extension);
         listOfMaps = new List<string>();
         mapOptionsDropDown.ClearOptions();
@@ -122,6 +131,16 @@ public class Program : MonoBehaviour
         }
     }
 
+    private IEnumerator DisplayError(string error)
+    {
+        errorUI.SetActive(true);
+        errorUIText.text = error;
+        yield return new WaitForSeconds(5f);
+        errorUI.SetActive(false);
+        errorUIText.text = string.Empty;
+        restartGameScript.Restart();
+    }
+
     void Game(string file)
     {
         lines = File.ReadAllLines(file);
@@ -146,7 +165,11 @@ public class Program : MonoBehaviour
                         mapScript.DefineMapSize(rows,cols);
                     }
                     else
+                    {
                         error = true;
+                        errorCoroutine = DisplayError("The map entered is not valid. You need to have both columns and rows on the first line of your map. Restarting game...");
+                        StartCoroutine(errorCoroutine);
+                    }
                 }
                 else
                 {
@@ -205,7 +228,8 @@ public class Program : MonoBehaviour
                     }
                 }
             }
-            tileFillerScript.FillMap(rows,cols);
+            if(!error)
+                tileFillerScript.FillMap(rows,cols);
         }
         error = false;
     }

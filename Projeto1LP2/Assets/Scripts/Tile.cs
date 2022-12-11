@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private static readonly IDictionary<string, TerrainType> terrainDict = new Dictionary<string, TerrainType>()
+    private static readonly Dictionary<string, TerrainType> terrainDict = new Dictionary<string, TerrainType>()
     {
         {"desert", TerrainType.Desert},
         {"plains", TerrainType.Plains},
@@ -46,12 +46,19 @@ public class Tile : MonoBehaviour
 
     public Tile(string terrain, List<Resource> resources)
     {
-        terrainDict.TryGetValue(terrain, out terrainType);
-        DefineBaseValues();
-        terrainResources = new List<Resource>();
-        foreach(Resource r in resources)
+        if(terrainDict.ContainsKey(terrain))
         {
-            terrainResources.Add(r);
+            terrainDict.TryGetValue(terrain, out terrainType);
+            DefineBaseValues();
+            terrainResources = new List<Resource>();
+            foreach(Resource r in resources)
+            {
+                terrainResources.Add(r);
+            }
+        }
+        else
+        {
+            Debug.Log("erro");
         }
     }
 

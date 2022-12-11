@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private static readonly Dictionary<string, TerrainType> terrainDict = new Dictionary<string, TerrainType>()
+    private static readonly IDictionary<string, TerrainType> terrainDict = new Dictionary<string, TerrainType>()
     {
         {"desert", TerrainType.Desert},
         {"plains", TerrainType.Plains},

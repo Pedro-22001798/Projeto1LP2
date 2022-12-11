@@ -156,7 +156,14 @@ public class Program : MonoBehaviour
                 {
                     string[] mapSize = lines[i].Split(" ");
                     int[] ints = new int[mapSize.Length];
-                    for(int y = 0; y < mapSize.Length; y++) ints[y] = Int32.Parse(mapSize[y]);
+                    for(int y = 0; y < mapSize.Length; y++) 
+                    {
+                        int number;
+                        if(Int32.TryParse(mapSize[y], out number))
+                            ints[y] = number;
+                        else
+                            Debug.Log("erro");
+                    }
                     if(ints.Length == 2)
                     {
                         rows = ints[0];

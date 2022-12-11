@@ -31,8 +31,13 @@ public class Resource : MonoBehaviour
 
     public Resource(string typeOfResource)
     {
-        resourceDict.TryGetValue(typeOfResource, out _typeOfResource);
-        DefineBaseValues();
+        if(resourceDict.ContainsKey(typeOfResource))
+        {
+            resourceDict.TryGetValue(typeOfResource, out _typeOfResource);
+            DefineBaseValues();
+        }
+        else
+            Debug.Log("erro recursos");
     }
 
     private void DefineBaseValues()

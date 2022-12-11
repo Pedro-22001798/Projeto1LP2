@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 using System.IO;
 
 public class Program : MonoBehaviour
@@ -40,6 +41,8 @@ public class Program : MonoBehaviour
     [SerializeField] private GameObject[] futureButtons;
     [SerializeField] private GameObject errorUI;
     [SerializeField] private Text errorUIText;
+
+    int validLines;
 
     void Start()
     {
@@ -166,6 +169,15 @@ public class Program : MonoBehaviour
                     }
                     if(ints.Length == 2)
                     {
+                        for(int x = 1; x < lines.Length; x++)
+                        {
+                            string[] line = lines[x].Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                            // if(line[0] != "#")
+                            // {
+                            //     validLines++;
+                            // }
+                        }
+                        Debug.Log(validLines);
                         rows = ints[0];
                         cols = ints[1];
                         mapTerrains = new string[rows,cols];

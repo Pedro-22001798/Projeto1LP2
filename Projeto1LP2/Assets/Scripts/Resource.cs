@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resource : MonoBehaviour
+public class Resource
 {
     private static readonly IDictionary<string, ResourceType> resourceDict = new Dictionary<string, ResourceType>()
     {
@@ -49,7 +49,7 @@ public class Resource : MonoBehaviour
                 extraFoodValue = 2;
                 break;
             case ResourceType.Animals:
-                extraGoldValue = 2;
+                extraGoldValue = 1;
                 extraFoodValue = 3;
                 break;
             case ResourceType.Metals:
@@ -57,15 +57,15 @@ public class Resource : MonoBehaviour
                 extraFoodValue = -1;
                 break;
             case ResourceType.FossilFuel:
-                extraGoldValue = 4;
-                extraFoodValue = -2;
+                extraGoldValue = 5;
+                extraFoodValue = -3;
                 break;
             case ResourceType.Luxury:
                 extraGoldValue = 4;
-                extraFoodValue = 0;
+                extraFoodValue = -1;
                 break;
             case ResourceType.Pollution:
-                extraGoldValue = -2;
+                extraGoldValue = -3;
                 extraFoodValue = -3;
                 break;
         }

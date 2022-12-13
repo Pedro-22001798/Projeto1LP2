@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class Tile
 {
     private static readonly IDictionary<string, TerrainType> terrainDict = new Dictionary<string, TerrainType>()
     {
